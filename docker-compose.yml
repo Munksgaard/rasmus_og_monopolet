@@ -1,0 +1,20 @@
+version: '3'
+services:
+  nginx:
+    image: nginx:1.15.8@sha256:b543f6d0983fbc25b9874e22f4fe257a567111da96fd1d8f1b44315f1236398c
+    container_name: nginx
+    volumes:
+      - ./index.html:/tmp/index.html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - rasmus_og_monopolet
+    ports:
+      - "3000:80"
+
+  rasmus_og_monopolet:
+    image: rasmus_og_monopolet
+    container_name: rasmus_og_monopolet
+    expose:
+      - 3000
+    env_file:
+      rasmus_og_monopolet.env
